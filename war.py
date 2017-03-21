@@ -3,6 +3,11 @@ SUITE = 'H D S C'.split()
 RANKS = '2 3 4 5 6 7 8 9 10 J Q K A'.split()
 
 class Deck:
+	# Constructor
+	def __init__(self):
+		self.cards = self.create_cards()
+		self.shuffle()
+
 	# Function to create all cards in a deck
 	def create_cards(self):
 		cards = []
@@ -10,9 +15,6 @@ class Deck:
 			for r in RANKS:
 				cards.append(r+s)
 		return cards
-	# Constructor
-	def __init__(self):
-		self.cards = self.create_cards()
 
 	# Function to shuffle deck
 	def shuffle(self):
@@ -30,10 +32,14 @@ class Deck:
 	"""
 
 class Hand:
-	'''
-	This is the Hand class. Each player has a Hand, and can add or remove
-	cards from that hand. There should be an add and remove card method here.
-	'''
+	def __init__(self, cards):
+		self.cards = cards
+
+	def add(self, card):
+		self.cards.append(card)
+
+	def remove(self):
+		self.cards.pop(0)
 	pass
 
 class Player:
@@ -48,6 +54,8 @@ class Player:
 #### GAME PLAY #######
 ######################
 deck = Deck()
+player = Player()
+opponent = Player()
 print("Welcome to War, let's begin...")
 print(deck.get_cards())
 
