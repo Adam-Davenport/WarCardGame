@@ -81,7 +81,7 @@ def war(player, opponent, cards):
 	# combine all cards in play to one pool and add in warcards
 	warcards = player.remove_war_cards()
 	warcards = append_list(warcards, cards)
-	warcards = append_list(warcards, open.remove_war_cards)
+	warcards = append_list(warcards, opponent.remove_war_cards)
 	if player.can_play() and opponent.can_play():
 		a = player.play()
 		b = opponent.play()
