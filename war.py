@@ -82,6 +82,20 @@ def war(player, opponent, cards):
 	warcards = player.remove_war_cards()
 	warcards = append_list(warcards, cards)
 	warcards = append_list(warcards, open.remove_war_cards)
+	if player.can_play() and opponent.can_play():
+		a = player.play()
+		b = opponent.play()
+		warcards.append(a)
+		warcards.append(b)
+		if compare_cards(a, b):
+			print("{} had the higher card and won this war!".format(player.name))
+			winner = player
+		else:
+			print("{} had the higher card and won this war!".format(opponent.name))
+			winner = opponent
+		shuffle(warcards)
+		for w in warcards:
+			winner.hand.add(w)
 
 
 def append_list(li, appendage):
@@ -117,37 +131,29 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 		warcards = [a,b]
 		war(player, opponent, warcards)
-
-		# Each player grabs their war cards.
-		warcards = player.remove_war_cards()
-		warcards.append(opponent.remove_war_cards())
-		# Add the current card in play to this stack so it is given to the winner
-		warcards.append(a)
-		warcards.append(b)
-		# Each player plays another card
-		if player.can_play():
-			if opponent.can_play():
-				a = player.play()
-				b = opponent.play()
-				warcards.append(a)
-				warcards.append(b)
-				if compare_cards(a, b):
-					print("{} had the higher card!".format(player.name))
-					winner = player
-				else:
-					print("{} had the higher card!".format(opponent.name))
-					winner = opponent
-				shuffle(warcards)
-				for i in warcards:
-					winner.hand.add(i)
-
-			else:
-				print("{} wins the game!".format(player.name))
-		elif opponent.can_play():
-			print("{} wins the game!".format(opponent.name))
-		else:
-			print("Somehow everyone lost this game!")
-
+		#
+		# # Each player grabs their war cards.
+		# warcards = player.remove_war_cards()
+		# warcards.append(opponent.remove_war_cards())
+		# # Add the current card in play to this stack so it is given to the winner
+		# warcards.append(a)
+		# warcards.append(b)
+		# # Each player plays another card
+		# if player.can_play():
+		# 	if opponent.can_play():
+		# 		a = player.play()
+		# 		b = opponent.play()
+		# 		warcards.append(a)
+		# 		warcards.append(b)
+		# 		if compare_cards(a, b):
+		# 			print("{} had the higher card!".format(player.name))
+		# 			winner = player
+		# 		else:
+		# 			print("{} had the higher card!".format(opponent.name))
+		# 			winner = opponent
+		# 		shuffle(warcards)
+		# 		for i in warcards:
+		# 			winner.hand.add(i)
 	else:
 		if compare_cards(a, b):
 			player.hand.add(a)
