@@ -49,7 +49,7 @@ class Player:
 
 	# Plays the top card from the deck
 	def play(self):
-		print("{a} plays {b}".format(a=self.name, b=self.hand.cards[0]))
+		print("{} plays {} of {}".format(self.name, self.hand.cards[0][0], self.hand.cards[0][1]))
 		return self.hand.remove()
 
 	# Check and make sure the player still has cards to play
@@ -65,7 +65,6 @@ deck = Deck()
 hands = deck.split()
 h1 = Hand(hands[0])
 h2 = Hand(hands[1])
-print(hands)
 
 # Player Setup
 print("Welcome to War, let's begin...")
@@ -85,5 +84,11 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 	elif RANKS.index(a[0]) > RANKS.index(b[0]):
 		print("{} wins!".format(player.name))
+		player.hand.add(a)
+		player.hand.add(b)
+	else:
+		print("{} wins!".format(opponent.name))
+		opponent.hand.add(b)
+		opponent.hand.add(a)
 
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
