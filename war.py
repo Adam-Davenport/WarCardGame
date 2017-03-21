@@ -66,6 +66,9 @@ class Player:
 		return len(self.hand.cards) > 0
 	pass
 
+###############################
+#	Game Logic Functions
+###############################
 # Check who won the round
 def compare_cards(a, b):
 	if RANKS.index(a[0]) >= RANKS.index(b[0]):
@@ -75,6 +78,7 @@ def compare_cards(a, b):
 
 # Function to handle a war
 def war(player, opponent, cards):
+	# combine all cards in play to one pool and add in warcards
 	warcards = player.remove_war_cards()
 	warcards = append_list(warcards, cards)
 	warcards = append_list(warcards, open.remove_war_cards)
@@ -113,6 +117,7 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 		warcards = [a,b]
 		war(player, opponent, warcards)
+
 		# Each player grabs their war cards.
 		warcards = player.remove_war_cards()
 		warcards.append(opponent.remove_war_cards())
