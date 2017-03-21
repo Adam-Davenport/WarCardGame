@@ -130,6 +130,12 @@ while player.can_play() and opponent.can_play():
 			print("Somehow everyone lost this game!")
 
 	else:
-		compare_cards(a, b)
+		if compare_cards(a, b):
+			player.hand.add(a)
+			player.hand.add(b)
+		else:
+			opponent.hand.add(a)
+			opponent.hand.add(b)
+
 
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
