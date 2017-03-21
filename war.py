@@ -74,8 +74,9 @@ def compare_cards(a, b):
 		return False
 
 # Function to handle a war
-def war(player, opponent):
+def war(player, opponent, cards):
 	warcards = player.remove_war_cards()
+	warcards = append_list(warcards, cards)
 	warcards = append_list(warcards, open.remove_war_cards)
 
 
@@ -110,6 +111,8 @@ while player.can_play() and opponent.can_play():
 	if a[0] == b[0]:
 		print("It's War")
 		warCount += 1
+		warcards = [a,b]
+		war(player, opponent, warcards)
 		# Each player grabs their war cards.
 		warcards = player.remove_war_cards()
 		warcards.append(opponent.remove_war_cards())
