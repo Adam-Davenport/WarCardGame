@@ -73,6 +73,17 @@ def compare_cards(a, b):
 	else:
 		return False
 
+# Function to handle a war
+def war(player, opponent):
+	warcards = player.remove_war_cards()
+	warcards = append_list(warcards, open.remove_war_cards)
+
+
+def append_list(li, appendage):
+	for a in appendage:
+		li.append(a)
+	return li
+
 ######################
 #### GAME PLAY #######
 ######################
