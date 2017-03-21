@@ -66,6 +66,13 @@ class Player:
 		return len(self.hand.cards) > 0
 	pass
 
+# Check who won the round
+def compare_cards(a, b):
+	if RANKS.index(a[0]) >= RANKS.index(b[0]):
+		return True
+	else:
+		return False
+
 ######################
 #### GAME PLAY #######
 ######################
@@ -88,18 +95,41 @@ while player.can_play() and opponent.can_play():
 	counter += 1
 	a = player.play()
 	b = opponent.play()
+	winner = player
 	if a[0] == b[0]:
 		print("It's War")
 		warCount += 1
-		player.remove_war_cards()
-		opponent.remove_war_cards()
-	elif RANKS.index(a[0]) > RANKS.index(b[0]):
-		print("{} had the higher card!".format(player.name))
-		player.hand.add(a)
-		player.hand.add(b)
+		# Each player grabs their war cards.
+		warcards = player.remove_war_cards()
+		warcards.append(opponent.remove_war_cards())
+		# Add the current card in play to this stack so it is given to the winner
+		warcards.append(a)
+		warcards.append(b)
+		# Each player plays another card
+		if player.can_play():
+			if opponent.can_play():
+				a = player.play()
+				b = opponent.play()
+				warcards.append(a)
+				warcards.append(b)
+				if compare_cards(a, b):
+					print("{} had the higher card!".format(player.name))
+					winner = player
+				else:
+					print("{} had the higher card!".format(opponent.name))
+					winner = opponent
+				shuffle(warcards)
+				for i in warcards:
+					winner.hand.add(i)
+
+			else:
+				print("{} wins the game!".format(player.name))
+		elif opponent.can_play():
+			print("{} wins the game!".format(opponent.name))
+		else:
+			print("Somehow everyone lost this game!")
+
 	else:
-		print("{} had the higher card!".format(opponent.name))
-		opponent.hand.add(b)
-		opponent.hand.add(a)
+		compare_cards(a, b)
 
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
