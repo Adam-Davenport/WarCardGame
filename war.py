@@ -91,4 +91,5 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 	elif RANKS.index(a[0]) > RANKS.index(b[0]):
 		print("{} wins!".format(player.name))
-	print(player.hand.cards)
+
+print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
