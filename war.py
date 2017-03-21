@@ -14,7 +14,7 @@ class Deck:
 		cards = []
 		for s in SUITE:
 			for r in RANKS:
-				cards.append(r+s)
+				cards.append([r,s])
 		return cards
 
 	# Function to shuffle deck
