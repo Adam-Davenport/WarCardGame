@@ -80,8 +80,8 @@ def compare_cards(a, b):
 def war(player, opponent, cards):
 	# combine all cards in play to one pool and add in warcards
 	warcards = player.remove_war_cards()
-	warcards = append_list(warcards, cards)
-	warcards = append_list(warcards, opponent.remove_war_cards())
+	warcards.extend(opponent.remove_war_cards())
+	warcards.extend(cards)
 	if player.can_play() and opponent.can_play():
 		a = player.play()
 		b = opponent.play()
@@ -96,12 +96,6 @@ def war(player, opponent, cards):
 		shuffle(warcards)
 		for w in warcards:
 			winner.hand.add(w)
-
-
-def append_list(li, appendage):
-	for a in appendage:
-		li.append(a)
-	return li
 
 ######################
 #### GAME PLAY #######
