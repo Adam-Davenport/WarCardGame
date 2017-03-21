@@ -1,6 +1,7 @@
 # Preparing deck of cards
 SUITE = 'H D S C'.split()
 RANKS = '2 3 4 5 6 7 8 9 10 J Q K A'.split()
+from random import shuffle
 
 class Deck:
 	# Constructor
@@ -18,8 +19,7 @@ class Deck:
 
 	# Function to shuffle deck
 	def shuffle(self):
-		import random
-		random.shuffle(self.cards)
+		shuffle(self.cards)
 
 	# Function to split the deck in half
 	def split(self):
@@ -27,12 +27,6 @@ class Deck:
 		b = self.cards[26::]
 		return [a,b]
 	pass
-	"""
-	This is the Deck Class. This object will create a deck of cards to initiate
-	play. You can then use this Deck list of cards to split in half and give to
-	the players. It will use SUITE and RANKS to create the deck. It should also
-	have a method for splitting/cutting the deck in half and Shuffling the deck.
-	"""
 
 class Hand:
 	# Hand constructor
