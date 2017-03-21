@@ -23,7 +23,7 @@ class Deck:
 
 	# Function to split the deck in half
 	def split(self):
-		a = self.cards[::26]
+		a = self.cards[0:26]
 		b = self.cards[26::]
 		return [a,b]
 	pass
@@ -55,11 +55,12 @@ class Player:
 
 	# Plays the top card from the deck
 	def play(self):
+		print("{a} plays {b}".format(a=self.name, b=self.hand.cards[0]))
 		return self.hand.remove()
 
 	# Check and make sure the player still has cards to play
 	def can_play(self):
-		return len(self.hand.cards) < 0
+		return len(self.hand.cards) > 0
 	pass
 
 ######################
@@ -70,6 +71,7 @@ deck = Deck()
 hands = deck.split()
 h1 = Hand(hands[0])
 h2 = Hand(hands[1])
+print(hands)
 
 # Player Setup
 print("Welcome to War, let's begin...")
@@ -77,8 +79,16 @@ print("What is your name?")
 name = input()
 player = Player(name, h1)
 opponent = Player('Computer', h2)
+counter = 0
+warCount = 0
 
-counter = 1
 while player.can_play() and opponent.can_play():
-	print("Turn {c}:".format(c=counter))
-	input()
+	counter += 1
+	a = player.play()
+	b = opponent.play()
+	if a[0] == b[0]:
+		print("It's War")
+		warCount += 1
+	elif RANKS.index(a[0]) > RANKS.index(b[0]):
+		print("{} wins!".format(player.name))
+	print(player.hand.cards)
