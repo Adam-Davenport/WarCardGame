@@ -52,6 +52,15 @@ class Player:
 		print("{} plays {} of {}".format(self.name, self.hand.cards[0][0], self.hand.cards[0][1]))
 		return self.hand.remove()
 
+	# Remove war cards
+	def remove_war_cards(self):
+		print("{} puts 3 cards face down.".format(self.name))
+		war_cards = []
+		for i in range(3):
+			if self.can_play():
+				war_cards.append(self.hand.remove())
+		return war_cards
+
 	# Check and make sure the player still has cards to play
 	def can_play(self):
 		return len(self.hand.cards) > 0
@@ -82,6 +91,8 @@ while player.can_play() and opponent.can_play():
 	if a[0] == b[0]:
 		print("It's War")
 		warCount += 1
+		player.remove_war_cards()
+		opponent.remove_war_cards()
 	elif RANKS.index(a[0]) > RANKS.index(b[0]):
 		print("{} had the higher card!".format(player.name))
 		player.hand.add(a)
