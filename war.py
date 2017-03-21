@@ -101,7 +101,8 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 		# Each player grabs their war cards.
 		warcards = player.remove_war_cards()
-		warcards.append(opponent.remove_war_cards())
+		for card in opponent.remove_war_cards():
+			warcards.append(card)
 		# Add the current card in play to this stack so it is given to the winner
 		warcards.append(a)
 		warcards.append(b)
@@ -136,6 +137,5 @@ while player.can_play() and opponent.can_play():
 		else:
 			opponent.hand.add(a)
 			opponent.hand.add(b)
-
 
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
