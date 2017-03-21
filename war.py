@@ -32,17 +32,31 @@ class Deck:
 	"""
 
 class Hand:
+	# Hand constructor
 	def __init__(self, cards):
 		self.cards = cards
 
+	# Puts a card on the bottom of the players hand
 	def add(self, card):
 		self.cards.append(card)
 
+	# Takes the top card off the players hand and returns that value
 	def remove(self):
-		self.cards.pop(0)
+		return self.cards.pop(0)
 	pass
 
 class Player:
+	def __init__(self, name, hand):
+		self.name = name
+		self.hand = hand
+
+	# Plays the top card from the deck
+	def play(self):
+		return self.hand.remove()
+
+	# Check and make sure the player still has cards to play
+	def can_play(self):
+		return self.hand < 0
 	"""
 	This is the Player class, which takes in a name and an instance of a Hand
 	class object. The Payer can then play cards and check if they still have cards.
