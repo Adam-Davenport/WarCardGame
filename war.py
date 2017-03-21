@@ -138,4 +138,5 @@ while player.can_play() and opponent.can_play():
 		else:
 			opponent.hand.add(a)
 			opponent.hand.add(b)
+print("{} had {} cards left.".format(player.name, len(player.hand.cards)))
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
