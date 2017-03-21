@@ -21,8 +21,11 @@ class Deck:
 		import random
 		random.shuffle(self.cards)
 
-	def get_cards(self):
-		return self.cards
+	# Function to split the deck in half
+	def split(self):
+		a = self.cards[::26]
+		b = self.cards[26::]
+		return [a,b]
 	pass
 	"""
 	This is the Deck Class. This object will create a deck of cards to initiate
@@ -56,21 +59,26 @@ class Player:
 
 	# Check and make sure the player still has cards to play
 	def can_play(self):
-		return self.hand < 0
-	"""
-	This is the Player class, which takes in a name and an instance of a Hand
-	class object. The Payer can then play cards and check if they still have cards.
-	"""
+		return len(self.hand.cards) < 0
 	pass
-
 
 ######################
 #### GAME PLAY #######
 ######################
+# Deck and hand setup
 deck = Deck()
-player = Player()
-opponent = Player()
-print("Welcome to War, let's begin...")
-print(deck.get_cards())
+hands = deck.split()
+h1 = Hand(hands[0])
+h2 = Hand(hands[1])
 
-# Use the 3 classes along with some logic to play a game of war!
+# Player Setup
+print("Welcome to War, let's begin...")
+print("What is your name?")
+name = input()
+player = Player(name, h1)
+opponent = Player('Computer', h2)
+
+counter = 1
+while player.can_play() and opponent.can_play():
+	print("Turn {c}:".format(c=counter))
+	input()
