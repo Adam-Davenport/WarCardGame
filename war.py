@@ -83,11 +83,11 @@ while player.can_play() and opponent.can_play():
 		print("It's War")
 		warCount += 1
 	elif RANKS.index(a[0]) > RANKS.index(b[0]):
-		print("{} wins!".format(player.name))
+		print("{} had the higher card!".format(player.name))
 		player.hand.add(a)
 		player.hand.add(b)
 	else:
-		print("{} wins!".format(opponent.name))
+		print("{} had the higher card!".format(opponent.name))
 		opponent.hand.add(b)
 		opponent.hand.add(a)
 
