@@ -131,29 +131,6 @@ while player.can_play() and opponent.can_play():
 		warCount += 1
 		warcards = [a,b]
 		war(player, opponent, warcards)
-		#
-		# # Each player grabs their war cards.
-		# warcards = player.remove_war_cards()
-		# warcards.append(opponent.remove_war_cards())
-		# # Add the current card in play to this stack so it is given to the winner
-		# warcards.append(a)
-		# warcards.append(b)
-		# # Each player plays another card
-		# if player.can_play():
-		# 	if opponent.can_play():
-		# 		a = player.play()
-		# 		b = opponent.play()
-		# 		warcards.append(a)
-		# 		warcards.append(b)
-		# 		if compare_cards(a, b):
-		# 			print("{} had the higher card!".format(player.name))
-		# 			winner = player
-		# 		else:
-		# 			print("{} had the higher card!".format(opponent.name))
-		# 			winner = opponent
-		# 		shuffle(warcards)
-		# 		for i in warcards:
-		# 			winner.hand.add(i)
 	else:
 		if compare_cards(a, b):
 			player.hand.add(a)
@@ -161,6 +138,4 @@ while player.can_play() and opponent.can_play():
 		else:
 			opponent.hand.add(a)
 			opponent.hand.add(b)
-
-
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
