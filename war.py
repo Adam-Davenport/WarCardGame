@@ -26,7 +26,6 @@ class Deck:
 		a = self.cards[0:26]
 		b = self.cards[26::]
 		return [a,b]
-	pass
 
 class Hand:
 	# Hand constructor
@@ -40,7 +39,6 @@ class Hand:
 	# Takes the top card off the players hand and returns that value
 	def remove(self):
 		return self.cards.pop(0)
-	pass
 
 class Player:
 	def __init__(self, name, hand):
@@ -64,7 +62,6 @@ class Player:
 	# Check and make sure the player still has cards to play
 	def can_play(self):
 		return len(self.hand.cards) > 0
-	pass
 
 ###############################
 #	Game Logic Functions
@@ -119,18 +116,19 @@ while player.can_play() and opponent.can_play():
 	counter += 1
 	a = player.play()
 	b = opponent.play()
-	winner = player
-	if a[0] == b[0]:
-		print("It's War")
-		warCount += 1
-		warcards = [a,b]
-		war(player, opponent, warcards)
+	c = len(player.hand.cards)
+	print(c)
+	# if a[0] == b[0]:
+	# 	print("It's War")
+	# 	warCount += 1
+	# 	warcards = [a,b]
+	# 	war(player, opponent, warcards)
+	# else:
+	if compare_cards(a, b):
+		player.hand.add(a)
+		player.hand.add(b)
 	else:
-		if compare_cards(a, b):
-			player.hand.add(a)
-			player.hand.add(b)
-		else:
-			opponent.hand.add(a)
-			opponent.hand.add(b)
+		opponent.hand.add(a)
+		opponent.hand.add(b)
 print("{} had {} cards left.".format(player.name, len(player.hand.cards)))
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
