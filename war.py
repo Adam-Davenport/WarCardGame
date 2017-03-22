@@ -23,8 +23,8 @@ class Deck:
 
 	# Function to split the deck in half
 	def split(self):
-		a = self.cards[0:26]
-		b = self.cards[26::]
+		a = self.cards[:26]
+		b = self.cards[26:]
 		return [a,b]
 
 class Hand:
@@ -33,12 +33,12 @@ class Hand:
 		self.cards = cards
 
 	# Puts a card on the bottom of the players hand
-	def add(self, card):
-		self.cards.append(card)
+	def add(self, cards):
+		self.cards.extend(cards)
 
 	# Takes the top card off the players hand and returns that value
 	def remove(self):
-		return self.cards.pop(0)
+		return self.cards.pop()
 
 class Player:
 	def __init__(self, name, hand):
@@ -66,13 +66,6 @@ class Player:
 ###############################
 #	Game Logic Functions
 ###############################
-# Check who won the round
-def compare_cards(a, b):
-	if RANKS.index(a[0]) >= RANKS.index(b[0]):
-		return True
-	else:
-		return False
-
 # Function to handle a war
 def war(player, opponent, cards):
 	# combine all cards in play to one pool and add in warcards
@@ -84,15 +77,14 @@ def war(player, opponent, cards):
 		b = opponent.play()
 		warcards.append(a)
 		warcards.append(b)
-		if compare_cards(a, b):
+		if RANKS.index(a[0]) >= RANKS.index(b[0]):
 			print("{} had the higher card and won this war!".format(player.name))
 			winner = player
 		else:
 			print("{} had the higher card and won this war!".format(opponent.name))
 			winner = opponent
 		shuffle(warcards)
-		for w in warcards:
-			winner.hand.add(w)
+		winner.hand.add(warcards)
 
 ######################
 #### GAME PLAY #######
@@ -116,19 +108,17 @@ while player.can_play() and opponent.can_play():
 	counter += 1
 	a = player.play()
 	b = opponent.play()
-	c = len(player.hand.cards)
-	print(c)
-	# if a[0] == b[0]:
-	# 	print("It's War")
-	# 	warCount += 1
-	# 	warcards = [a,b]
-	# 	war(player, opponent, warcards)
-	# else:
-	if compare_cards(a, b):
-		player.hand.add(a)
-		player.hand.add(b)
+	table_cards = [a,b]
+	if a[0] == b[0]:
+		print("It's War")
+		warCount += 1
+		war(player, opponent, table_cards)
 	else:
-		opponent.hand.add(a)
-		opponent.hand.add(b)
+		if RANKS.index(a[0]) >= RANKS.index(b[0]):
+			print("Player has the higher card")
+			player.hand.add(table_cards)
+		else:
+			print("Opponent has the higher card")
+			opponent.hand.add(table_cards)
 print("{} had {} cards left.".format(player.name, len(player.hand.cards)))
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
