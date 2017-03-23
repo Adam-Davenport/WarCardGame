@@ -120,5 +120,8 @@ while player.can_play() and opponent.can_play():
 		else:
 			print("Opponent has the higher card")
 			opponent.hand.add(table_cards)
-print("{} had {} cards left.".format(player.name, len(player.hand.cards)))
+if player.can_play():
+	print("{} is the winner".format(player.name))
+else:
+	print("{} is the winner".format(opponent.name))
 print("The game is over and lasted {} rounds and had {} wars!".format(counter, warCount))
