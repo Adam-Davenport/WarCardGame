@@ -66,17 +66,18 @@ class Player:
 ###############################
 #	Game Logic Functions
 ###############################
+
 # Function to handle a war
 def war(player, opponent, cards):
 	# combine all cards in play to one pool and add in warcards
 	warcards = player.remove_war_cards()
 	warcards.extend(opponent.remove_war_cards())
 	warcards.extend(cards)
+	# Make sure each player has cards to play
 	if player.can_play() and opponent.can_play():
 		a = player.play()
 		b = opponent.play()
-		warcards.append(a)
-		warcards.append(b)
+		warcards.extend([a,b])
 		if RANKS.index(a[0]) >= RANKS.index(b[0]):
 			print("{} had the higher card and won this war!".format(player.name))
 			winner = player
@@ -104,6 +105,7 @@ opponent = Player('Computer', h2)
 counter = 0
 warCount = 0
 
+# Play the game while each player has cards
 while player.can_play() and opponent.can_play():
 	counter += 1
 	a = player.play()
@@ -120,6 +122,7 @@ while player.can_play() and opponent.can_play():
 		else:
 			print("Opponent has the higher card")
 			opponent.hand.add(table_cards)
+# Display who won the game and how long it lasted
 if player.can_play():
 	print("{} is the winner".format(player.name))
 else:
